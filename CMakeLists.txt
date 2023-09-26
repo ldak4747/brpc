@@ -451,6 +451,7 @@ set(PROTO_FILES idl_options.proto
                 brpc/policy/public_pbrpc_meta.proto
                 brpc/policy/sofa_pbrpc_meta.proto
                 brpc/policy/mongo.proto
+                brpc/policy/websocket.proto
                 brpc/trackme.proto
                 brpc/streaming_rpc_meta.proto
                 brpc/proto_base.proto)
@@ -503,3 +504,4 @@ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/output/include/
 # Install pkgconfig
 configure_file(cmake/brpc.pc.in ${PROJECT_BINARY_DIR}/brpc.pc @ONLY)
 install(FILES ${PROJECT_BINARY_DIR}/brpc.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+

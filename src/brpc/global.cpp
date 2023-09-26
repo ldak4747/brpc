@@ -72,6 +72,7 @@
 #include "brpc/policy/nshead_mcpack_protocol.h"
 #include "brpc/policy/rtmp_protocol.h"
 #include "brpc/policy/esp_protocol.h"
+#include "brpc/policy/ws_rpc_protocol.h"
 #ifdef ENABLE_THRIFT_FRAMED_PROTOCOL
 # include "brpc/policy/thrift_protocol.h"
 #endif
@@ -434,6 +435,17 @@ static void GlobalInitializeOrDieImpl() {
         exit(1);
     }
 
+    Protocol ws_protocol = { ParseWsMessage,
+                             nullptr, nullptr,
+                             ProcessWsRequest, nullptr,
+                             VerifyWsRequest, nullptr,
+                             nullptr,
+                             CONNECTION_TYPE_SINGLE,
+                             "ws" };
+    if (RegisterProtocol(PROTOCOL_WEBSOCKET, ws_protocol) != 0) {
+        exit(1);
+    }
+
     Protocol hulu_protocol = { ParseHuluMessage,
                                SerializeRequestDefault, PackHuluRequest,
                                ProcessHuluRequest, ProcessHuluResponse,
@@ -628,3 +640,4 @@ void GlobalInitializeOrDie() {
 }
 
 } // namespace brpc
+
